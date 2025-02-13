@@ -15,7 +15,7 @@ try:
 except:
     print("No log file present, a new one will be created.")
 
-LoginUrl = "https://api.openpath.com/auth/login"
+LoginUrl     = "https://api.openpath.com/auth/login"
 LoginHeaders = {
     "accept": "application/json",
     "content-type": "application/json"
@@ -27,7 +27,7 @@ response = requests.post(LoginUrl, json=c.payload, headers=LoginHeaders)
 #Get JWT Token for remaining API calls
 if response.status_code == 201:
     json_response = response.json()
-    jwt_token = json_response["data"]["token"]
+    jwt_token     = json_response["data"]["token"]
     print(f"OpenPath Login successful. Status code : {response.status_code}")
 else:
     print(f"Failure to authenticate. Status code: {response.status_code}")
@@ -36,12 +36,12 @@ else:
 base_url = "https://api.openpath.com/orgs/ORG-ID"
 
 headers = {
-    "accept": "application/json",
-    "Authorization": jwt_token
+    "accept"        : "application/json",
+    "Authorization" : jwt_token
 }
 
-all_responses = []
-offset = 0
+all_responses    = []
+offset           = 0
 has_more_results = True
 
 while has_more_results == True:
@@ -53,16 +53,16 @@ while has_more_results == True:
     data = requests.get(url, headers=headers)
     json_data = data.json()
     for i in range(len(json_data['data'])):
-        user_email = json_data['data'][i]['user']['identity']['email']
-        user_card = json_data['data'][i]['card']['cardId']
+        user_email  = json_data['data'][i]['user']['identity']['email']
+        user_card   = json_data['data'][i]['card']['cardId']
         user_id_num = json_data['data'][i]['user']['externalId']
 
     # Store results in all_reponses list
         all_responses.append(
             {
-                "email": user_email,
-                "PROX_ID": user_card,
-                "ID_NUM": user_id_num
+                "email"   : user_email,
+                "PROX_ID" : user_card,
+                "ID_NUM"  : user_id_num
              }
         )
     # If there are more results, offest the call by 1000 and get more users. End loop if there are no more results
@@ -72,8 +72,8 @@ while has_more_results == True:
         offset += 1000
 
 # Logout of OpenPath
-logout_url = "https://api.openpath.com/auth/logout"
-headers = {"Authorization": jwt_token}
+logout_url      = "https://api.openpath.com/auth/logout"
+headers         = {"Authorization": jwt_token}
 logout_response = requests.post(logout_url, headers=headers)
 
 # Connect to AD
@@ -99,16 +99,16 @@ for i in range(len(all_responses)):
 print(f"Number of attempted updates: {len(all_responses)}")
 
 # Connect to database
-server = 'SERVER NAME'
+server   = 'SERVER NAME'
 database = 'DB NAME'
-cnxn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};''SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+c.db_username+';PWD='+c.db_password+';TrustServerCertificate=yes;')
-cursor = cnxn.cursor()
+cnxn     = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};''SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+c.db_username+';PWD='+c.db_password+';TrustServerCertificate=yes;')
+cursor   = cnxn.cursor()
 
 # Update PROX ID in NAME_MASTER_UDF
 for i in range(len(all_responses)):
     if all_responses[i]['ID_NUM'] != None and all_responses[i]['ID_NUM'] != '':
         prox_num = all_responses[i]['PROX_ID']
-        id_num = all_responses[i]['ID_NUM']
+        id_num   = all_responses[i]['ID_NUM']
         cursor.execute(f"""
                         UPDATE NAME_MASTER_UDF
                         SET PROX_ID = {prox_num}
