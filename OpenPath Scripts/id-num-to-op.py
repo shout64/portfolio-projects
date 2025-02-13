@@ -9,7 +9,7 @@ import creds as c
 # Re-write a log file every time this script runs
 log.basicConfig(filename='id-num-to-op.log', level=log.WARNING)
 try:
-    with open('prox-to-ad.log', 'w'):
+    with open('id-num-to-op.log', 'w'):
         pass
 except:
     print("No log file present, a new one will be created.")
@@ -26,7 +26,7 @@ response = requests.post(LoginUrl, json=c.payload, headers=LoginHeaders)
 #Get JWT Token for remaining API calls
 if response.status_code == 201:
     json_response = response.json()
-    jwt_token = json_response["data"]["token"]
+    jwt_token     = json_response["data"]["token"]
     print(f"OpenPath Login successful. Status code : {response.status_code}")
 else:
     print(f"Failure to authenticate. Status code: {response.status_code}")
@@ -52,18 +52,18 @@ while has_more_results == True:
     data = requests.get(url, headers=headers)
     json_data = data.json()
     for i in range(len(json_data['data'])):
-        user_email = json_data['data'][i]['identity']['email']
+        user_email      = json_data['data'][i]['identity']['email']
         user_externalID = json_data['data'][i]['externalId']
-        user_title = json_data['data'][i]['title']        
-        user_op_id = json_data['data'][i]['id']
+        user_title      = json_data['data'][i]['title']        
+        user_op_id      = json_data['data'][i]['id']
 
     # Store results in all_reponses list
         all_responses.append(
             {
-                "email": user_email,
+                "email"     : user_email,
                 "externalID": user_externalID,
-                "title": user_title,
-                "op_id": user_op_id
+                "title"     : user_title,
+                "op_id"     : user_op_id
              }
         )
     # If there are more results, offest the call by 1000 and get more users. End loop if there are no more results
@@ -86,10 +86,10 @@ for user in all_responses:
 users_needing_updates = users_needing_updates[:-2]
 
 # Connect to database
-server = 'DATABASE SERVER'
+server   = 'DATABASE SERVER'
 database = 'DB NAME'
-cnxn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};''SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+c.db_username+';PWD='+c.db_password+';TrustServerCertificate=yes;')
-cursor = cnxn.cursor()
+cnxn     = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};''SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+c.db_username+';PWD='+c.db_password+';TrustServerCertificate=yes;')
+cursor   = cnxn.cursor()
 
 #Fetch new info and update all_responses. Use lower() to catch all accounts that need updating.
 for row in cursor.execute(f"""
@@ -99,7 +99,7 @@ for row in cursor.execute(f"""
     for i in range(len(all_responses)):
         if all_responses[i]["email"].lower() == row.EMAIL_ADDRESS.lower():
             all_responses[i]["externalID"] = str(row.externalID)
-            all_responses[i]["title"] = row.TITLE
+            all_responses[i]["title"]      = row.TITLE
 
 # Loop through each member of all_responses and if 
 # they have a Jenzabar ID then run API call to update user information.
@@ -112,12 +112,12 @@ for i in range(len(all_responses)):
 
         update_payload = {
             "externalId": all_responses[i]["externalID"],
-            "title": all_responses[i]["title"]
+            "title"     : all_responses[i]["title"]
 
         }
         update_headers = {
-            "accept": "application/json",
-            "content-type": "application/json",
+            "accept"       : "application/json",
+            "content-type" : "application/json",
             "Authorization": jwt_token
         }
 
@@ -131,7 +131,7 @@ for i in range(len(all_responses)):
             
         # Updating University Library ID
         opid = all_responses[i]['op_id']
-        url = f"https://api.openpath.com/orgs/ORG-ID/users/{opid}/customFields/6307"
+        url  = f"https://api.openpath.com/orgs/ORG-ID/users/{opid}/customFields/6307"
 
         payload = { "value": "LIBRARY ID" }
 
@@ -152,6 +152,6 @@ print(f"IDs and Titles Updated: {user_accounts_updated}")
 
 
 #Logout of OpenPath
-logout_url = "https://api.openpath.com/auth/logout"
-headers = {"Authorization": jwt_token}
+logout_url      = "https://api.openpath.com/auth/logout"
+headers         = {"Authorization": jwt_token}
 logout_response = requests.post(logout_url, headers=headers)
