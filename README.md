@@ -14,13 +14,12 @@ I'm Devin, I am an Enterprise Applications Administrator with a history of worki
 
 ## Skills
 
-- **Programming Languages:** [Python, Powershell, GDScript, SQL]
-- **Frameworks & Libraries:** [Pandas, pyodbc, ms-active-directory]
-- **Tools & Technologies:** [Git, GitHub, GitLab, SQL Server, Jenzabar]
-- **Soft Skills:** [Resourcefulness, Teamwork, Communication, Documentation]
+- **Programming Languages:** Python, Powershell, GDScript, SQL
+- **Frameworks & Libraries:** Pandas, pyodbc, ms-active-directory
+- **Tools & Technologies:** Git, GitHub, GitLab, SQL Server, Jenzabar
+- **Soft Skills:** Resourcefulness, Teamwork, Communication, Documentation
 
 ## Contact
 
-- **Email:** devinlchaney@gmail.com
-- **LinkedIn:** [https://www.linkedin.com/in/devin-chaney-898490106/](#)
-- **GitHub:** [https://github.com/shout64](#)
+- [**Email**](mailto:devinlchaney@gmail.com)
+- [**LinkedIn**](https://www.linkedin.com/in/devin-chaney-898490106/)
