@@ -1,8 +1,8 @@
 # SQL Reports and Queries
- A sample set of queries used in reports and other integrations.
+ A sample set of queries used in reports and other integrations. Some details or values have been changed for anonymity.
  
 **housing_report.sql** is a query that was written after updating Jenzabar's housing product to a new version, and we needed a report to show who was housed in a given session. This query joins new housing sessions to the registration module's session tables to only provide data for a given term, where a student is an Undergraduate and has not withdrawn that term. The *:SessionCode* in the WHERE clause is a unique flag for Jenzabar's reporting application, Infomaker. This allows the user who's running the report to add their own session code to look at the data from the term they need.
 
-**open_path_export.sql** is a query that was used as a baseline export while integrating local systems with OpenPath. Some details have been changed for anonymity. This joins in student course and term tables to only return current students for the export.
+**open_path_export.sql** is a query that was used as a baseline export while integrating local systems with OpenPath. This joins in student course and term tables to only return current students for the export.
 
 **grading_period_updates.sql** is a set of queries that was prepared for updating courses with a project team. The intention was to bring these set of scripts to the meeting and make each change as a group to make sure we're only updating exactly what is needed. This project involved using new features in the Jenzabar system and adding a new grading period to help instructors check in with engagement in their courses. Each section of this query is setup so no changes are made accidentally, you must highlight the UPDATE or INSERT statements to intentionally make changes. There's also a ROLLBACK at the end of the query ready to go in the event that a mistake is made and something is updated unintentionally. 
