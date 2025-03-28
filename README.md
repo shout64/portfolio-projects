@@ -22,4 +22,4 @@ I'm Devin, I am an Enterprise Applications Administrator with a history of worki
 ## Contact
 
 - [**Email**](mailto:devinlchaney@gmail.com)
-- [**LinkedIn**](https://www.linkedin.com/in/devin-chaney-898490106/)
+- [**LinkedIn**](https://www.linkedin.com/in/devinchaney/)
