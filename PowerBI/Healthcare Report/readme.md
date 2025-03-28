@@ -2,7 +2,7 @@
 
 This report uses sample data from kaggle. You can find a [copy of this data here](https://www.kaggle.com/datasets/prasad22/healthcare-dataset/data).
 
-![Image of Healthcare Report](/PowerBI/Healthcare%20Report/PatientAndBillingData.jpg)
+![Image of Healthcare Report](/PowerBI/Healthcare%20Report/PatientBillingData.jpg)
 
 ## Process
 - Started by cleaning the data. This involed fixing the *case* on all of the patient names, making sure all the fields used the correct formatting and correcting typos.
