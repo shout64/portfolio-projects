@@ -1,4 +1,4 @@
-# Finance/ETL Scripts
+# Finance ETL Scripts
 A Python script and SQL procedure I wrote to pull data from an SIS (student information system), and load it into a finance/budgeting ERP system. Some details (procedure and table names) changed for anonymity.
  
 **SP_FINANCIAL_STUDENT_CHARGES_REPORT.sql** is a stored procedure that is ran from the production database of the SIS. It first creates a temp table that will be used to load transactions with the query. Then it looks at all the transaction IDs we want to load, and checks the custom log table to see if they have already been imported. If not, those "net-new" transactions are inserted into the temp table, and logged so they won't get pulled the next time.
