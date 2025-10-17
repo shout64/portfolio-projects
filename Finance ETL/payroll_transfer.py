@@ -90,14 +90,14 @@ except Exception as e:
 
 print("Connecting to Finance SFTP...")
 try:
-    private_key = paramiko.Ed25519Key.from_private_key_file(sftp_key, password=None)
-    fn_ssh_client  = paramiko.SSHClient()
+    private_key   = paramiko.Ed25519Key.from_private_key_file(sftp_key, password=None)
+    fn_ssh_client = paramiko.SSHClient()
 
     fn_ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     fn_ssh_client.connect(hostname=sftp_host, port=sftp_port, username=sftp_user, pkey=private_key)
     
-    file_list = os.listdir(local_path)
-    remote_path  = f"//Payroll//"
+    file_list   = os.listdir(local_path)
+    remote_path = f"//Payroll//"
     
     print("Copying files to Finance SFTP...")
     
@@ -132,3 +132,4 @@ except Exception as e:
 finally:
     fn_ssh_client.close()
     
+
