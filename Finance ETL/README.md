@@ -1,5 +1,11 @@
 # Finance ETL Scripts
-A Python script and SQL procedure I wrote to pull data from an SIS (student information system), and load it into a finance/budgeting ERP system. Some details (procedure and table names) changed for anonymity.
+Some details company, procedure and table names, and file locations) changed for anonymity.
+
+## Payroll Transfer
+**payroll_transfer.py** is a Python script that gets data from a payroll system to the finance system. First it connects to an SFTP for the payroll system to pull in multiple reports, then uses the Pandas library to concatenate all of the files to a single CSV with today's date. Then transfers that single file to the finance SFTP folder. The script then adds the date to each filename if needed and moves it to the history folder. Lastly, it checks the dates of each filename and removes it after the specified number of days.
+
+## SIS Transfer
+A Python script and SQL procedure I wrote to pull data from an SIS (student information system), and load it into a finance/budgeting ERP system. 
  
 **SP_FINANCIAL_STUDENT_CHARGES_REPORT.sql** is a stored procedure that is ran from the production database of the SIS. It first creates a temp table that will be used to load transactions with the query. Then it looks at all the transaction IDs we want to load, and checks the custom log table to see if they have already been imported. If not, those "net-new" transactions are inserted into the temp table, and logged so they won't get pulled the next time.
 
