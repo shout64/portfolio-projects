@@ -1,8 +1,12 @@
 # Example script for deleting a large batch of user cards from Alta Open (formerly OpenPath)
 # Some details changed for anonymity
 
+from dotenv import load_dotenv
 import requests
-import creds as c
+import os
+
+load_dotenv()
+payload = os.getenv("PAYLOAD")
 
 LoginUrl = "https://api.openpath.com/auth/login"
 LoginHeaders = {
@@ -11,7 +15,7 @@ LoginHeaders = {
 }
 
 #Login to OpenPath
-response = requests.post(LoginUrl, json=c.temp_payload, headers=LoginHeaders)
+response = requests.post(LoginUrl, json=payload, headers=LoginHeaders)
 
 #Get JWT Token for remaining API calls
 if response.status_code == 201:

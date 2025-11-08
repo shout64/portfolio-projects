@@ -1,9 +1,12 @@
 # Example script for large batch updating user badge info in Alta Open (formerly OpenPath)
 # Some details changed for anonymity
-
+from dotenv import load_dotenv
+import os
 import requests
 import pandas as p
-import creds as c
+
+load_dotenv()
+payload = os.getenv("PAYLOAD")
 
 LoginUrl = "https://api.openpath.com/auth/login"
 LoginHeaders = {
@@ -12,7 +15,7 @@ LoginHeaders = {
 }
 
 #Login to OpenPath
-response = requests.post(LoginUrl, json=c.temp_payload, headers=LoginHeaders)
+response = requests.post(LoginUrl, json=payload, headers=LoginHeaders)
 
 #Get JWT Token for remaining API calls
 if response.status_code == 201:
