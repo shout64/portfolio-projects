@@ -1,11 +1,19 @@
 # Example script for user badge info in local ERP and AD from Alta Open (formerly OpenPath)
 # Some details changed for anonymity
 
+from ms_active_directory import ADDomain
+from dotenv import load_dotenv
+import os
 import requests
 import logging as log
 import pyodbc
-import creds as c
-from ms_active_directory import ADDomain
+
+load_dotenv()
+payload = os.getenv("PAYLOAD")
+ad_user = os.getenv("AD_USER")
+ad_pass = os.getenv("AD_PASSWORD")
+db_user = os.getenv("DB_USER")
+db_pass = os.getenv("DB_PASS")
 
 # Re-write a log file every time this script runs
 log.basicConfig(filename='prox-to-ad.log', level=log.WARNING)
@@ -22,7 +30,7 @@ LoginHeaders = {
 }
 
 #Login to OpenPath
-response = requests.post(LoginUrl, json=c.payload, headers=LoginHeaders)
+response = requests.post(LoginUrl, json=payload, headers=LoginHeaders)
 
 #Get JWT Token for remaining API calls
 if response.status_code == 201:
@@ -78,7 +86,7 @@ logout_response = requests.post(logout_url, headers=headers)
 
 # Connect to AD
 domain = ADDomain('DOMAIN ADDRESS')
-session = domain.create_session_as_user(c.ad_user, c.ad_password)
+session = domain.create_session_as_user(ad_user, ad_pass)
 
 def prox_to_pager(email, prox):
     # Get user by email address. Returns list
@@ -101,7 +109,7 @@ print(f"Number of attempted updates: {len(all_responses)}")
 # Connect to database
 server   = 'SERVER NAME'
 database = 'DB NAME'
-cnxn     = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};''SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+c.db_username+';PWD='+c.db_password+';TrustServerCertificate=yes;')
+cnxn     = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};''SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+db_user+';PWD='+db_pass+';TrustServerCertificate=yes;')
 cursor   = cnxn.cursor()
 
 # Update PROX ID in NAME_MASTER_UDF

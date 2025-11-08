@@ -1,10 +1,16 @@
 # Example script for updating user info in Alta Open (formerly OpenPath) from local ERP
 # Some details changed for anonymity
 
+from dotenv import load_dotenv
 import requests
 import logging as log
 import pyodbc
-import creds as c
+import os
+
+load_dotenv()
+payload = os.getenv("PAYLOAD")
+db_user = os.getenv("DB_USER")
+db_pass = os.getenv("DB_PASS")
 
 # Re-write a log file every time this script runs
 log.basicConfig(filename='id-num-to-op.log', level=log.WARNING)
@@ -21,7 +27,7 @@ LoginHeaders = {
 }
 
 #Login to OpenPath
-response = requests.post(LoginUrl, json=c.payload, headers=LoginHeaders)
+response = requests.post(LoginUrl, json=payload, headers=LoginHeaders)
 
 #Get JWT Token for remaining API calls
 if response.status_code == 201:
@@ -88,7 +94,7 @@ users_needing_updates = users_needing_updates[:-2]
 # Connect to database
 server   = 'DATABASE SERVER'
 database = 'DB NAME'
-cnxn     = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};''SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+c.db_username+';PWD='+c.db_password+';TrustServerCertificate=yes;')
+cnxn     = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};''SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+db_user+';PWD='+db_pass+';TrustServerCertificate=yes;')
 cursor   = cnxn.cursor()
 
 #Fetch new info and update all_responses. Use lower() to catch all accounts that need updating.
