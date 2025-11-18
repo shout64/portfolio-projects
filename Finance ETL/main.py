@@ -98,7 +98,7 @@ def main():
 
     # Non-Student Data
     non_student_file = get_new_filename("NON_STUDENT")
-    non_stud_columns, non_stud_data = run_stored_procedure("SP_NON_STUDEND_CHARGES_REPORT")
+    non_stud_columns, non_stud_data = run_stored_procedure("SP_NON_STUDENT_CHARGES_REPORT")
     create_csv(non_stud_columns, non_stud_data, non_student_file)
 
     files_to_send = [student_file, non_student_file]
@@ -107,3 +107,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
