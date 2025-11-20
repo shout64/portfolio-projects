@@ -91,20 +91,31 @@ def remove_old_files():
     print(f"\nRemoved files older than: {date_to_compare}")
 
 def main():
+    files_to_send = []
+    
     # Student Data
     student_file = get_new_filename("STUDENT")
     stud_columns, stud_data = run_stored_procedure("SP_FINANCIAL_STUDENT_CHARGES_REPORT")
-    create_csv(stud_columns, stud_data, student_file)
+    if len(stud_data) > 0:
+        create_csv(stud_columns, stud_data, student_file)
+        files_to_send.append(student_file)
 
     # Non-Student Data
     non_student_file = get_new_filename("NON_STUDENT")
     non_stud_columns, non_stud_data = run_stored_procedure("SP_NON_STUDENT_CHARGES_REPORT")
-    create_csv(non_stud_columns, non_stud_data, non_student_file)
-
-    files_to_send = [student_file, non_student_file]
-    send_files_to_finance(files_to_send)
-    remove_old_files()
+    if len(non_stud_data) > 0:
+        create_csv(non_stud_columns, non_stud_data, non_student_file)
+        files_to_send.append(non_student_file)
+    
+    # Send files to NS
+    if len(files_to_send) > 0:
+        send_files_to_finance(files_to_send)
+        remove_old_files()
+    else:
+        print("No files to send. Exiting...")
+        exit()
 
 if __name__ == "__main__":
     main()
+
 
