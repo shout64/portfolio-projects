@@ -74,14 +74,20 @@ except Exception as e:
 finally:
     ssh_client.close()
    
-# Combine CSVs to one file
+# Combine CSVs to one file and convert needed column types
 print("Consolidating files...")
 all_dataframes = []
+data_types     = {
+    "journalItemLine_department"       : str,
+    "journalItemLine_restriction"      : str,
+    "journalItemLine_program"          : str,
+    "journalItemLine_functionalexpense": str,
+}
 
 try:
     for file in os.listdir(local_path):
         filepath = os.path.join(local_path, file)
-        all_dataframes.append(pd.read_csv(filepath))
+        all_dataframes.append(pd.read_csv(filepath, dtype=data_types))
     
     new_data = pd.concat(all_dataframes, ignore_index=True)
     new_data.to_csv(os.path.join(local_path, csv_filename), index=False)
@@ -132,4 +138,5 @@ except Exception as e:
 finally:
     fn_ssh_client.close()
     
+
 
