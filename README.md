@@ -10,7 +10,7 @@ Welcome to my portfolio! This repository showcases my work, skills, and projects
 
 ## About Me
 
-I'm Devin, I am an Enterprise Applications Administrator with a history of working in the higher education industry. I have a passion for working with others to bring technical solutions to complicated problems. I am skilled in Microsoft SQL, Python, Powershell, scripting and automation.
+I'm Devin, I am an Applications Administrator and ERP Analyst with a history of working in the higher education industry. I have a passion for working with others to bring technical solutions to complicated problems. I am skilled in Microsoft SQL, Python, Powershell, scripting and automation.
 
 ## Skills
 
