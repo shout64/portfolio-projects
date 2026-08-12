@@ -57,5 +57,3 @@ SET GradePeriodOpenDate = NULL, GradePeriodCloseDate = NULL
 --SELECT GradePeriodOpenDate, GradePeriodCloseDate FROM SectionMasterGradePeriod
 WHERE GradePeriodDefAppID = 1
 AND GradePeriodCloseDate IS NOT NULL
-
-ROLLBACK
