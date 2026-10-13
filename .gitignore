@@ -171,6 +171,6 @@ cython_debug/
 .pypirc
 
 # Old projects
-/Power BI
-/WebScraping
+/PowerBI/
+/WebScraping/
 
