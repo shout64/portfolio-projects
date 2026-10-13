@@ -1,4 +1,4 @@
-# Example script for updating user info in Alta Open (formerly OpenPath) from local ERP
+# Example script for updating user info in Alta Access (formerly OpenPath) from local ERP
 # Some details changed for anonymity
 
 from dotenv import load_dotenv

@@ -1,4 +1,4 @@
-# Example script for user badge info in local ERP and AD from Alta Open (formerly OpenPath)
+# Example script for user badge info in local ERP and AD from Alta Access (formerly OpenPath)
 # Some details changed for anonymity
 
 from ms_active_directory import ADDomain

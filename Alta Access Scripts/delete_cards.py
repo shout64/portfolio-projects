@@ -1,4 +1,4 @@
-# Example script for deleting a large batch of user cards from Alta Open (formerly OpenPath)
+# Example script for deleting a large batch of user cards from Alta Access (formerly OpenPath)
 # Some details changed for anonymity
 
 from dotenv import load_dotenv

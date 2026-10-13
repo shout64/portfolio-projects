@@ -1,4 +1,4 @@
-# Example script for large batch updating user badge info in Alta Open (formerly OpenPath)
+# Example script for large batch updating user badge info in Alta Access (formerly OpenPath)
 # Some details changed for anonymity
 from dotenv import load_dotenv
 import os
