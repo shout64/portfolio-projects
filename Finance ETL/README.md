@@ -1,5 +1,8 @@
 # Finance ETL Scripts
-Some details (company, procedure and table names, and file locations) changed for anonymity.
+*Some details (company, procedure and table names, and file locations) changed for anonymity.
+
+## Overview
+Greenville University had decided to move to a new finance system, which meant getting data over from the SIS, and the payroll system, to the new finance system. Building a query to pull data that fit their import template was challenge enough on it's own. What was just as crucial was building a reliable system to get the data transferred repeatedly and securely. I built a set of scripts that could pull what was needed, log what had been sent, and give us a way to go back and re-run if needed. This gave the finance team peace of mind to know that this data would not have to be pulled and imported manually, and to be confident that they are reporting on accurate data at all times.
 
 ## Payroll Transfer
 **payroll_transfer.py** is a Python script that gets data from a payroll system to the finance system. First it connects to an SFTP for the payroll system to pull in multiple reports, then uses the Pandas library to concatenate all of the files to a single CSV with today's date. Then transfers that single file to the finance SFTP folder. The script then adds the date to each filename if needed and moves it to the history folder. Lastly, it checks the dates of each filename and removes it after the specified number of days.
